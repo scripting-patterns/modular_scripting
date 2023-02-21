@@ -1,0 +1,27 @@
+0:0_hostinfo:Host Information Capture::info
+1:1_oslevel_s:AIX Current Version Check:Don't Upgrade (already TL12):fail
+2:1_pssp:PSSP Check:Don't Upgrade (Restricted to 5.2 TL10):fail
+3:2_lsmcode_A_ent:Ethernet Microcode Check (Lpar):Upgrade Microcode during TL12 Upgrade:fail
+4:2_lsmcode_A_fcs:FiberChannel Microcode Check (Lpar):Upgrade Microcode during TL12 Upgrade:fail
+5:3_lsvg_l_rootvg:rootvg Mirror Check:Resolve as part of TL12 Upgrade.CC Add detail to change.:pass
+6:4_lsvg_l_datavg:Other VG Mirror Check:Refer to SME's for clarification:info
+7:5_uptime:Uptime Check:Pre Upgrade Reboot Required.:pass
+8:6_mksysb:Recent Mksysb Check:Use Tier two Pre-Approved change to investigate & resolve any issues.Then take mksysb:pass
+9:7_errpt:Errpt Check:Use Tier two Pre-Approved change to investigate & assess whether current issues need resolving. Advise SME's:info
+10:8_lspath:Paths Check:Use Tier two Pre-Approved change to investigate & assess whether current issues need resolving. Advise SME's:pass
+11:9_lppchk:Fileset Consistency Check:Use Tier two Pre-Approved change to investigate & assess whether current issues need resolving. Advise SME's:pass
+12:11_instfix_i_grep:Technology Level Completeness Check:Use Tier two Pre-Approved change to investigate & assess whether current issues need resolving. Advise SME's:pass
+13:12_emgr_P:Efix Check:List in change. Remove before TL12 Upgrade HACMP Password Lock re-apply post Upgrade:fail
+14:13_df:Filesystem Threshold Check:Use Tier two Pre-Approved change to investigate & assess whether current issues need resolving. Advise SME's:pass
+15:14_hmc:HMC Identity Check:CC to Include in Change Task & CI:info
+16:15_csm:CSM Identity Check:CC to Include in Change & CI:info
+17:16_is_oracle:Oracle App Task Check:CC to Include Change Task for Oracle Team:fail
+18:17_is_WAS:Websphere WAS App Task Check:CC to Include Change Task for Websphere Team:fail
+19:18_is_http_IHS:Websphere IHS App Task Check :CC to Include Change Task for Websphere Team:fail
+20:20_is_was_MQ:Websphere MQ App Task Check:CC to Include Change Task for MQ Team:fail
+21:19_is_hacmp:HACMP Cluster Check:CC to Raise Change on the basis that both HA nodes will need to be upgraded sequentially; and an outage will be experienced during resource failover between nodes.:fail
+22:21_multibos:Multibos Space Check:Use Tier two Pre-Approved change to assess options for making space available. Advise CC Required actions or Alt Disk requirement:pass
+23:22_nfs_exports:NFS Server Check:Evaluate NFS server dependencies; and arrange Change & Approvals accordingly. Task to check NFS mounts on client servers Pre and Post may be required.:fail
+24:23_invscout:Inventory Scout Check:Upload the attached MUP file to IBM Microcode Discovery Service and Update the comments in the master check list.:info
+25:24_sdd_check:SDD/SDDPCM Check:Upgrade the SDD/SDDPCM components. If you're upgrading from 5.2 to 5.3; you might need to uninstall before upgrading.:fail
+26:25_clsync:clsync Check:Follow the upgrade guide.doc section 12:fail

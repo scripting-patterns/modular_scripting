@@ -1,0 +1,21 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+csm_ip=`lsrsrc -d -x -s 'ManagerType = "CSM"' IBM.ManagementServer Hostname | head -n 1 | sed 's/[:"]//g'`
+
+[ "x$csm_ip" == "x" ] && {
+        echo "Unable to detemine the CSM. Please maually fill this information from the GEP Frames Doc."
+        exit $erro
+}
+
+csm_host=`grep $csm_ip $DIR_PATH/../misc/csm.list | cut -f 1 -d :`
+
+[ "x$csm_host" == "x" ] && {
+        echo "Unable to find the hostname for $csm_ip"
+        exit $erro
+} || {
+        echo $csm_host
+}
+exit $info

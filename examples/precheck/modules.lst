@@ -1,0 +1,27 @@
+# Copyright (C) 2010 Kosala Atapattu, kosala@kosala.net
+# Syntax
+# ------
+# INTERACTIVE:MOD_NAME:MOD_DESC
+1_oslevel_s:Is this server updated to TL12 SP02:If No and details say a version less than 5300-12 then upgrade to TL 12
+1_pssp:Does this server run PSSP?:If yes, this cannot be upgraded beyond 5.2 TL10
+2_lsmcode_A_ent:Do we need ethernet microcode updates?:If Yes upgrade the microcode
+2_lsmcode_A_fcs:Do we need FC microcode updates?:If Yes upgrade the microcode
+3_lsvg_l_rootvg:Is the rootvg mirrored correctly?:If No, technical resource need to fix the issues before upgrading
+4_lsvg_l_datavg:Are other VGs mirrored correctly?:If No, technical resource need to fix the issues before upgrading
+5_uptime:Is uptime less than 90 days:if No, reboot required before the change to confirm no existing issues
+6_mksysb:Is there a recent mksysb:If No, technical resource need to fix the issues before upgrading
+#7_errpt:Dose ERRPT have any concerned entries
+8_lspath:Are all the paths enabled?:If No, technical resource need to fix the issues before upgrading
+9_lppchk:Are all the filesets consistent?:If No, technical resource need to fix the issues before upgrading
+11_instfix_i_grep:All the previous upgrades were complete?:If No, technical resource need to fix the issues before upgrading
+12_emgr_P:Are there any efixes?:If Yes, technical resource need to invetigate further.
+13_df:Are all the filesystems below 90% utilization?:If No, technical resource need to fix the issues before upgrading
+14_hmc:HMC:Should should be added to the CI list for the change
+15_csm:CSM Server:Should should be added to the CI list for the change
+16_is_oracle:Is there Oracle Installed?:If Yes, include task for Oracle team, and functional checklist set to Y in oracle
+17_is_WAS:Is there WebSpher installed?:If Yes, include task : 1) for ELAB, WebSphere team 2) for PROD, OPS task and functional checklist set to Y in webspher.
+18_is_http_IHS:Is there IHS installed?:If Yes, include task : 1) for ELAB, WebSphere team 2) for PROD, OPS task and functional checklist set to Y in webspher.
+20_is_was_MQ:Is there WAS MQ installed?:If Yes, include task : 1) for ELAB, WebSphere team 2) for PROD, OPS task and functional checklist set to Y in webspher.
+19_is_hacmp:Is this part of a HA cluster?:If this is Yes, there will be outage during resource failover between nodes
+21_multibos:Do we have enough space to do multibos?:If No, technical resource need to fix the issues before upgrading
+22_nfs_exports:Does this server export any NFS volumes?:If Yes, take that in to consideration when raising the change.

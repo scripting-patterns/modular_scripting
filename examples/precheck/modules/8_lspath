@@ -1,0 +1,12 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+lspath=`lspath | grep -v Enable`
+
+[ "x$lspath" == "x" ] && exit $pass || {
+	echo $lspath 
+	exit $fail
+}
+exit $pass

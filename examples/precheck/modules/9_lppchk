@@ -1,0 +1,11 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+lppchk=`lppchk -v 2>&1`
+[ "x$lppchk" == "x" ] && exit $pass || {
+	echo $lppchk 
+	exit $fail
+}
+exit $pass

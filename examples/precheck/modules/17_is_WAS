@@ -1,0 +1,28 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+was_ver=`lslpp -l WSBA* 2>&1 | egrep "APPL|COMM" | awk '{print $2}' | sort -u`
+
+nodeagent_count=`ps -ef | grep java | grep nodeagent | grep -v grep | wc -l`
+
+dmgr_count=`ps -ef | grep java | grep dmgr | grep -v grep | wc -l`
+
+[ "x$was_ver" == "x" ] || {
+        [ $nodeagent_count -gt 0 ] && {
+                echo "Category : WebSphere Applications Server"
+                echo "Versions: $was_ver"
+                exit $apps 
+        } || {
+                [ $dmgr_count -gt 0 ] && {
+                        echo "Category: WAS ND Deployment Manager"
+                        echo "Versions: $was_ver"
+                        exit $apps
+                } || {
+                        echo "The script unable to identify this installation. Please do a lslpp -l WSBA* mannually."
+                        exit $erro
+                }
+        }
+} && exit $fail
+

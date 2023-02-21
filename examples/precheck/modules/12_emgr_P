@@ -1,0 +1,18 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+[ $USER == "root" ] || {
+	echo "You need to be root to check this module"
+	exit $fail
+}
+
+emgr=`lslpp -e 2>&1`
+
+[ "x$emgr" == "xThere is no efix data on this system." ] && {
+	exit $fail
+} || {
+	echo $emgr
+	exit $pass 
+}

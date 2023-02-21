@@ -1,0 +1,4 @@
+HEAP_SIZE=1572864
+heap_mem () {
+	ps -eo rssize,command | grep java | grep -v grep | awk "{ rss+=\$1 } END { print rss/$HEAP_SIZE }"
+}

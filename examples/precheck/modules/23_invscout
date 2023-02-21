@@ -1,0 +1,15 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+[ "x$USER" == "xroot" ] || {
+        echo "You need to be root to check this module"
+        exit $info
+}
+
+upload_file=`invscout -catl $DIR_PATH/../misc/catalog.mic | grep "^Upload file:" | cut -f 2 -d :`
+
+cp $upload_file $DIR_PATH/../out_files/.
+
+exit $pass

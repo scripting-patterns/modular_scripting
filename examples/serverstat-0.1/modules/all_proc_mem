@@ -1,0 +1,4 @@
+ALL_MEM=3145728
+all_proc_mem () {
+	ps -eo rssize | awk "{ rss+=\$1 } END { print rss/$ALL_MEM }"
+}

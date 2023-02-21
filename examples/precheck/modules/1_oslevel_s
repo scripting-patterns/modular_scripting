@@ -1,0 +1,27 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+out=`oslevel -s`
+highest_out=`oslevel -sq 2>/dev/null | sort | tail -n 1`
+
+failed=0
+
+[ "x`echo $out | grep 5300-12-02-1036`" == "x" ] && {
+	failed=1
+} 
+
+[ "x$out" == "x$highest_out" ] || {
+	failed=1
+	echo "Last Upgrade: Incomplete"
+} 
+
+[ $failed -eq 1 ] && {
+	echo "Current OS level: $out"
+	echo "Highest OS level: $highest_out"
+	exit $fail
+} || {
+	echo "Currunt OS Level: $out"
+	exit $pass
+}

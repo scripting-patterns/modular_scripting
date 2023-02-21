@@ -1,0 +1,12 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+instfix_out=`instfix -i | egrep "_ML|_SP" | grep Not`
+
+[ "x$instfix_out" == "x" ] && exit $pass || {
+	echo $instfix_out 
+	exit $fail
+}
+exit $pass 

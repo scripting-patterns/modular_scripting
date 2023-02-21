@@ -1,0 +1,31 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+lsuser oracle 1>/dev/null 2>/dev/null
+
+[ $? == 0 ] || {
+	exit $fail
+}
+
+[ `ps -ef | grep ocssd.bin | grep -v grep | grep oracle | wc -l` -eq 1 ] && {
+	[ "x$USER" == "xroot" ] && {
+		rac_nodes=`su - oracle -c olsnodes`
+		[ "x$rac_nodes" == "x" ] || {
+			echo "This is a RAC node, All the related Nodes: $rac_nodes"
+		}			
+	} || {
+		echo "This server seems to be part of a RAC cluster, yet you need to be root to get the lts servers in this RAC cluster."
+	}
+}
+
+ora=`ps -ef | grep -i ora_pmon | grep -v grep | awk '{print $9}'`
+
+[ "x$ora" == "x" ] || {
+	echo "All the oracle instances:"
+	echo $ora 
+	exit $apps
+} && {
+	exit $fail
+} 

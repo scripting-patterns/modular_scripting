@@ -1,0 +1,30 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+fs_full=0
+
+for x in `lsvg -l rootvg | awk '{print $7}' | grep '^/'`
+do
+fs=`df -m $x 2>/dev/null | grep '^/' | sed 's/%//g' | awk '{if ($4 > 89) print $7}'`
+[ $fs ] && {
+	echo "$fs in rootvg more than 90% full"
+	fs_full=1
+}
+done
+
+for x in `lsvg -o | grep -v rootvg | lsvg -li | awk '{print $7}' | grep '^/'`
+do
+fs=`df -m $x 2>/dev/null | grep '^/' | sed 's/%//g' | awk '{if ($4 == 100) print $7}'`
+[ $fs ] && {
+        echo "$fs in non-rootvg is 100% full"
+        fs_full=1
+}
+done
+
+[ $fs_full -eq 1 ] && {
+	exit $fail
+} || {
+	exit $pass
+}

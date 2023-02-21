@@ -1,0 +1,13 @@
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+module3 () {
+    printf $0
+}
+
+module3
+[ $? -eq 0 ] && {
+    exit $pass
+} || {
+    exit $fail
+}

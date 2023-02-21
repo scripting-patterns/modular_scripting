@@ -1,0 +1,13 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+pssp=`lslpp -l ssp.basic 2>&1 | egrep "COMM|APPL" | awk '{print $2}' | sort -u`
+
+[ "x$pssp" == "x" ] && {
+	exit $fail
+} || {
+	echo $pssp
+	exit $pass
+} 

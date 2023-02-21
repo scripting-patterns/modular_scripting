@@ -1,0 +1,6 @@
+print_to_twilight () {
+	echo $1 >&6
+}
+
+typeset -fx print_to_twilight
+

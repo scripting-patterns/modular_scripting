@@ -1,0 +1,20 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+nfs_exports=`showmount -e 2>&1`
+
+[ $? == 0 ] || exit $fail
+
+[ "x$nfs_exports" == "x" ] && exit $fail
+
+nfs_clients=$(showmount -a | cut -f 1 -d : | cut -f 1 -d - | sort -u)
+
+[ "x$nfs_clients" == "x" ] || {
+	echo $nfs_clients
+} && {
+	echo "No clients"
+}
+
+exit $pass

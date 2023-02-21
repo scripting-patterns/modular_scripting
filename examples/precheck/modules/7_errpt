@@ -1,0 +1,10 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+host=`uname -n`
+
+errpt > $DIR_PATH/../out_files/${host}.errpt
+
+exit $info

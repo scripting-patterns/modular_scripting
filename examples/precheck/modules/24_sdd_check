@@ -1,0 +1,22 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+sdd_filesets=`lslpp -cl devices.sdd.* 2>&1 |  egrep "COMM|APPL" | awk -F : '{print $2" "$3}' | sort -u`
+ 
+
+failed=1
+[ "x$sdd_filesets" == "x" ] || {
+        echo "This system seems to be having SDD [ $sdd_filesets ]. If SDDPCM is supported by these
+ disks, uninstall SDD and install SDDPCM."
+        failed=0
+}
+
+sddpcm_filesets=`lslpp -cl devices.sddpcm.* 2>&1 |  egrep "COMM|APPL" | awk -F : '{print $2" "$3}' | sort -u`
+[ "x$sddpcm_filesets" == "x" ] || {
+	echo "This system has SDDPCM [ $sddpcm_filesets ], please upgrade it to a level agreeed in the TL12 build document" 
+	failed=0
+}
+
+[ $failed -eq 1 ] && exit $fail || exit $pass

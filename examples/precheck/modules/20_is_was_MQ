@@ -1,0 +1,12 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+mq_ver=`lslpp -l mqm.base.runtime 2>&1 | egrep "COMM|APPL" | awk '{print $2}' | sort -u`
+
+[ x$mq_ver == "x" ] && exit $fail || {
+	echo $mq_ver 
+	exit $apps
+}
+exit $fail

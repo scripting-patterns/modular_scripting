@@ -1,0 +1,23 @@
+# This files contain the information regarding the modules for the 
+# performance monitoring.
+# Copyrights Reserved, (c) 2008 Kosala Atapattu <kosala@kosala.net>
+# Freely distributed under GPLv2.
+# How to register new nodule
+# --------------------------
+#
+# Create a script with the MODULE_NAME under modules/ directory
+# and make sure that script has a subroutine with the MODULE_NAME
+# which will be executed from the perf.sh
+# 
+# NOTE: having functions same as the existing commands will cause recursive 
+# 	looping of the same function.
+#
+# And enter the MODULE_NAME and RRDFILE in this file in the 
+# following order
+#
+# MODULE_NAME:RRDFILE
+#------------------------------
+uptime_load:uptime.rrd
+cpu_util:cpu.rrd
+block_que:bq.rrd
+all_proc_mem:mem.rrd

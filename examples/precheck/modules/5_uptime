@@ -1,0 +1,16 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+ok_uptime=365
+
+days=`uptime | grep day | awk '{print $3}'`
+
+[ "x$days" == "x" ] && { 
+	exit $pass
+} || {
+	echo "Uptime is $days Days" 
+	[ $days -gt $ok_uptime ] && exit $fail
+	exit $pass
+}

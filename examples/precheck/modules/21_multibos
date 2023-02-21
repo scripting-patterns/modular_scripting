@@ -1,0 +1,16 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+multibos_req=11520
+
+rootvg_free=`lsvg rootvg | grep FREE |  cut -d '(' -f 2 | cut -d ' ' -f 1`
+
+fs_free=`lsvg -l rootvg | grep -v 'N/A' | grep '/' | awk '{print $7}' | xargs df -m | grep -v Filesystem | awk '{free+=$3} END {print free}' | cut -d . -f 1`
+
+total_free=`expr $rootvg_free + $fs_free`
+
+echo "Free PPs on rootvg: $rootvg_free, Free space on filesystems: $fs_free, Total free: $total_free" 
+
+[ $total_free -lt $multibos_req ] && exit $fail || exit $pass

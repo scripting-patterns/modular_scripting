@@ -1,0 +1,22 @@
+# This files contain the information regarding the modules for the 
+# performance monitoring.
+# Copyrights Reserved, (c) 2008 Kosala Atapattu <kosala@kosala.net>
+# Freely distributed under GPLv2.
+# How to register new nodule
+# --------------------------
+#
+# Create a script with the MODULE_NAME under modules/ directory
+# and make sure that script has a subroutine with the MODULE_NAME
+# which will be executed from the perf.sh
+# 
+# NOTE: having functions same as the existing commands will cause recursive 
+# 	looping of the same function.
+#
+# MODULE_ID:MODULE_NAME:MODULE_DESCRIPTION
+#------------------------------
+module1:Print module1:Demo Module
+module2:Print module2:Demo Module
+module3:Print module3:Demo Module
+module4:Print module4:Demo Module
+module5:Print module5:Demo Module
+error_test:Try to extract data with awk:This will fail

@@ -1,0 +1,23 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+file=`ls -tr /mksysb/*.mksysb 2>/dev/null | tail -n 1`
+
+[ "x$file" == "x" ] && {
+	echo "Cannot find a mksysb image:"
+	[ -r /mksysb/Lastbackup.README ] && cat /mksysb/Lastbackup.README
+	exit $fail
+}
+
+last_mksysb=`perl <<EOF
+my \\$mtime = (stat("$file"))[9];
+print (time()-\\$mtime);
+EOF`
+
+[ $last_mksysb -gt 864000 ] && {
+	age=`expr $last_mksysb / 86400`
+	echo "Last mksysb is $age days old"
+	exit $fail
+} || exit $pass

@@ -1,0 +1,21 @@
+#!/usr/bin/ksh 
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+num_disks=`lsvg -p rootvg | grep active | wc -l`
+
+[ $num_disks -gt 1 ] && {
+	copies=2
+} || {
+	copies=1
+}
+
+need_mirror=`lsvg -l rootvg | grep -v rootvg | grep -v sysdump | grep -v 'LV' | awk "{pp=\\$3*${copies};if (pp != \\$4) print \\$1\"not mirrored\n\" }"`
+
+[ "x$need_mirror" == "x" ] && {
+	exit $pass
+} || {
+	echo $need_mirror 
+	exit $fail
+}

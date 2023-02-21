@@ -1,0 +1,13 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+need_mirror=`lsvg -o | grep -v rootvg | lsvg -li 2>/dev/null | grep -v ":" | grep -v TYPE | awk "{if (\\$3 != \\$4) mir=1; if (\\$3 == \\$4) { unmir_list=\\$1\\" \\"unmir_list; print \\$1 ;unmir=1} } END { if (mir == 1 && unmir == 1) print _nmir_list }"`
+
+[ "x$need_mirror" == "x" ] && {
+	exit $info
+} || {
+	echo $need_mirror
+	exit $info
+}

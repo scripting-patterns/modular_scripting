@@ -1,0 +1,19 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+ihs_ver=`lslpp -cl "IHS*.base" 2>/dev/null | egrep "COMM|APPL" | awk -F: '{print $2" "$3}'`
+
+ihs_count=`ps -ef | grep http | grep IHS | grep -v grep | grep -v 18_is_http_IHS | wc -l`
+
+[ "x$ihs_ver" == "x" ] || {
+        [ $ihs_count -gt 0 ] && {
+                echo "Versions: $ihs_ver"
+                exit $apps
+        } || {
+                echo "There seems to be ISH installed [ $ihs_ver ], but unable to trace running processes"
+                exit $erro
+        }
+} && exit $fail 
+

@@ -1,0 +1,31 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+clsync=0
+
+clsync_proc=`ps -ef | grep clsync | grep -v grep | grep -v 25_clsync | wc -l`
+
+[ $clsync_proc -eq 1 ] && {
+	echo "There is a process matched for clsync."
+	clsync=1
+}
+
+[ "x$USER" == "xroot" ] && {
+	lsitab_clsync=`lsitab clsync`
+	[ $? -eq 0 ] && {
+		echo "There is a inittab entry for clsync."
+		clsync=1
+	}
+} || {
+	echo "You need to be root to completely test this modules. Partially tested"
+}
+
+lssrc_clsync=`lssrc -s clsync 2>/dev/null`
+[ $? -eq 0 ] && {
+	echo "There is a service registered in the services for clsync"
+	clsync=1
+}
+
+[ $clsync -eq 1 ] && exit $pass || exit $fail

@@ -1,0 +1,11 @@
+failing_func() {
+	echo "this" | awk '$0 ~ /my line/ { print /\/\this }'
+}
+
+failing_func
+
+[ $? -eq 0 ] && {
+	exit 100
+} || {
+	exit 101
+}

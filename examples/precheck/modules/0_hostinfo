@@ -1,0 +1,25 @@
+#!/usr/bin/ksh
+
+DIR_PATH=`dirname $0`
+. $DIR_PATH/../globals
+
+uname_L=`uname -L | cut -f 2 -d ' '`
+host=`uname -n`
+hw=`uname -M`
+
+case "x$uname_L" in 
+xNULL)
+	type=Standalone
+	;;
+xFull)
+	type=Blade
+	;;
+*)
+	type=LPAR
+	;;
+esac
+
+echo "Category: $type"
+echo "Host: $host"
+echo "Machine-Type: $hw"
+exit $info

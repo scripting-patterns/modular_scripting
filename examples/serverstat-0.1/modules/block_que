@@ -1,0 +1,3 @@
+block_que () {
+	vmstat 1 5 | awk '{ bq+=$2 } END { print bq/5 }'
+}
